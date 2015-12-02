@@ -21,6 +21,7 @@ namespace WpfApplication1
     /// </summary>
     public partial class MainWindow : Window
     {
+        private string _directory;
         public MainWindow()
         {
             InitializeComponent();
@@ -28,8 +29,12 @@ namespace WpfApplication1
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            foreach (string s in Directory.GetLogicalDrives())
-            {
+        }
+
+        private void updateTree(String dir)
+        {
+            foreach (string s in Directory.EnumerateDirectories(dir))
+                {
                 TreeViewItem item = new TreeViewItem();
                 item.Header = s;
                 item.Tag = s;
@@ -46,7 +51,7 @@ namespace WpfApplication1
             if (item.Items.Count == 1)
             {
                 item.Items.Clear();
-                    Console.WriteLine("Inside the Try");
+                try {
                     foreach (string s in Directory.GetDirectories(item.Tag.ToString()))
                     {
                         TreeViewItem subitem = new TreeViewItem();
@@ -57,7 +62,17 @@ namespace WpfApplication1
                         subitem.Expanded += new RoutedEventHandler(folder_Expanded);
                         item.Items.Add(subitem);
                     }
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    Console.WriteLine("rekt");
+                }
             }
+        }
+
+        private void searchButton_Click(object sender, RoutedEventArgs e)
+        {
+            updateTree(textDirectory.Text);
         }
     }
 }

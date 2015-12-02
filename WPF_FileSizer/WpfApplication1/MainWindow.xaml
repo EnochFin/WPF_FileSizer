@@ -8,6 +8,8 @@
         Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded">
     <Grid>
         <TreeView x:Name="fileTreeView" HorizontalAlignment="Left" Height="235" Margin="32,59,0,0" VerticalAlignment="Top" Width="396"/>
+        <TextBox x:Name="textDirectory" HorizontalAlignment="Left" Height="23" Margin="32,28,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="318"/>
+        <Button x:Name="searchButton" Content="Search" HorizontalAlignment="Right" Margin="0,28,89,0" Width="75" Height="20" VerticalAlignment="Top" Click="searchButton_Click"/>
 
     </Grid>
 </Window>
