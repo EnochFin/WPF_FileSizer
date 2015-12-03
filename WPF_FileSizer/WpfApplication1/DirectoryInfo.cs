@@ -31,6 +31,8 @@ namespace WpfApplication1
             {
                 Size += d.Size;
             }
+
+
         }
 
         public DirectoryInfo(String path)
@@ -38,8 +40,6 @@ namespace WpfApplication1
             Name = "__Parent";
             Subdirectories = new List<DirectoryInfo>();
             Subdirectories.Add(new DirectoryInfo(path, this));
-
-            //Size += size of self
         }
     }
 }
