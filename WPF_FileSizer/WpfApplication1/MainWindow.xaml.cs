@@ -28,7 +28,7 @@ namespace WpfApplication1
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
-            fileTreeView.ItemsSource = new MyDirectoryInfo(textDirectory.Text).Subdirectories;
+            fileTreeView.ItemsSource = new MyFileInfo(textDirectory.Text).SubFiles;
         }
     }
 }

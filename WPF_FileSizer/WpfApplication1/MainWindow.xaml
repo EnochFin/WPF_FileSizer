@@ -9,7 +9,7 @@
     <Grid>
         <TreeView x:Name="fileTreeView" HorizontalAlignment="Left" Height="235" Margin="32,59,0,0" VerticalAlignment="Top" Width="396">
             <TreeView.Resources>
-                <HierarchicalDataTemplate ItemsSource="{Binding Path=Subdirectories}" DataType="{x:Type local:MyDirectoryInfo }">
+                <HierarchicalDataTemplate ItemsSource="{Binding Path=SubFiles}" DataType="{x:Type local:MyFileInfo }">
                     <TextBlock Text="{Binding Path=Name}"></TextBlock>
                 </HierarchicalDataTemplate>
             </TreeView.Resources>
