@@ -21,58 +21,14 @@ namespace WpfApplication1
     /// </summary>
     public partial class MainWindow : Window
     {
-        private string _directory;
         public MainWindow()
         {
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void updateTree(String dir)
-        {
-            foreach (string s in Directory.EnumerateDirectories(dir))
-                {
-                TreeViewItem item = new TreeViewItem();
-                item.Header = s;
-                item.Tag = s;
-                item.FontWeight = FontWeights.Normal;
-                item.Items.Add(new TreeViewItem());
-                item.Expanded += new RoutedEventHandler(folder_Expanded);
-                fileTreeView.Items.Add(item);
-            }
-        }
-
-        void folder_Expanded(object sender, RoutedEventArgs e)
-        {
-            TreeViewItem item = (TreeViewItem)sender;
-            if (item.Items.Count == 1)
-            {
-                item.Items.Clear();
-                try {
-                    foreach (string s in Directory.GetDirectories(item.Tag.ToString()))
-                    {
-                        TreeViewItem subitem = new TreeViewItem();
-                        subitem.Header = s.Substring(s.LastIndexOf("\\") + 1);
-                        subitem.Tag = s;
-                        subitem.FontWeight = FontWeights.Normal;
-                        subitem.Items.Add(new TreeViewItem());
-                        subitem.Expanded += new RoutedEventHandler(folder_Expanded);
-                        item.Items.Add(subitem);
-                    }
-                }
-                catch (UnauthorizedAccessException)
-                {
-                    Console.WriteLine("rekt");
-                }
-            }
-        }
-
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
-            updateTree(textDirectory.Text);
+            fileTreeView.ItemsSource = new DirectoryInfo(textDirectory.Text).Subdirectories;
         }
     }
 }
