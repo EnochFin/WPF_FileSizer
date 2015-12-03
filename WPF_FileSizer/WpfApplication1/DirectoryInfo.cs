@@ -16,18 +16,30 @@ namespace WpfApplication1
 
         public IList<DirectoryInfo> Subdirectories { get; set; }
 
-        private DirectoryInfo(string path, DirectoryInfo parent) { }
-
-        public DirectoryInfo(String path)
+        private DirectoryInfo(string path, DirectoryInfo parent)
         {
             Name = path.Substring(path.LastIndexOf("\\") + 1);
+            Parent = parent;
             Subdirectories = new List<DirectoryInfo>();
             Size = 5;
             foreach (String dir in Directory.GetDirectories(path))
             {
-                Subdirectories.Add(new DirectoryInfo(dir));
+                Subdirectories.Add(new DirectoryInfo(dir, this));
             }
 
+            foreach (DirectoryInfo d in Subdirectories)
+            {
+                Size += d.Size;
+            }
+        }
+
+        public DirectoryInfo(String path)
+        {
+            Name = "__Parent";
+            Subdirectories = new List<DirectoryInfo>();
+            Subdirectories.Add(new DirectoryInfo(path, this));
+
+            //Size += size of self
         }
     }
 }
