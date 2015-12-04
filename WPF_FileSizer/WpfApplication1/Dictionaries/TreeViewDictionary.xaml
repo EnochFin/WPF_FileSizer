@@ -4,8 +4,8 @@
 
     <wpfApplication1:SizesToGradientConverter x:Key="GradientConverter" />
     <wpfApplication1:SizesToPercentageConverter x:Key="PercentageConverter" />
-    <HierarchicalDataTemplate ItemsSource="{Binding Path=Subdirectories}"
-                                              DataType="{x:Type wpfApplication1:MyDirectoryInfo }">
+    <HierarchicalDataTemplate ItemsSource="{Binding Path=SubFiles}"
+                                              DataType="{x:Type wpfApplication1:MyFileInfo}">
         <StackPanel Orientation="Horizontal">
             <Path Margin="0 0 5 0" Name="folder" Fill="#FF157EFB" StrokeThickness="1">
                 <Path.Data>
