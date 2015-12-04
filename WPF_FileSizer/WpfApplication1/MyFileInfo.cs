@@ -14,27 +14,37 @@ namespace WpfApplication1
 
         public long Size { get; private set; }
 
+        public int FileCount { get; private set; }
+
         public MyFileInfo Parent { get; private set; }
 
         public IList<MyFileInfo> SubFiles { get; set; }
 
+        public DateTime LastEdit { get; private set; }
+
         private MyFileInfo(string path, MyFileInfo parent)
         {
+            FileCount = 0;
             Name = path.Substring(path.LastIndexOf("\\") + 1);
             Parent = parent;
             SubFiles = new List<MyFileInfo>();
             FileAttributes attr = File.GetAttributes(path);
+            LastEdit = Directory.GetLastWriteTime(path);
 
             if (attr.HasFlag(FileAttributes.Directory))
             {
                 foreach (string dir in Directory.GetDirectories(path))
                 {
-                    SubFiles.Add(new MyFileInfo(dir, this));
+                    MyFileInfo subDir = new MyFileInfo(dir, this);
+                    SubFiles.Add(subDir);
+                    FileCount += subDir.FileCount;
                 }
 
                 foreach (string file in Directory.GetFiles(path))
                 {
-                    SubFiles.Add(new MyFileInfo(file, this));
+                    MyFileInfo subDir = new MyFileInfo(file, this);
+                    SubFiles.Add(subDir);
+                    FileCount += 1;
                 }
 
                 foreach (MyFileInfo f in SubFiles)
@@ -45,6 +55,8 @@ namespace WpfApplication1
             else
             {
                Size = new FileInfo(path).Length;
+                FileCount = 1;
+
             }
 
         }

@@ -22,15 +22,15 @@
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
             <StatusBarItem Grid.Column="0">
-                <TextBlock>Size of selection</TextBlock>
+                <TextBlock x:Name="SizeText">Size of selection</TextBlock>
             </StatusBarItem>
             <Separator Grid.Column="1"/>
             <StatusBarItem Grid.Column="2">
-                <TextBlock>Files in Selection</TextBlock>
+                <TextBlock x:Name="FileCountText">Files in Selected Directory</TextBlock>
             </StatusBarItem>
             <Separator Grid.Column="3"/>
             <StatusBarItem Grid.Column="4">
-                <TextBlock>Last Edit Of Selection</TextBlock>
+                <TextBlock x:Name="LastEditText">Last Edit Of Selection</TextBlock>
             </StatusBarItem>
         </StatusBar>
         <Grid>
@@ -47,7 +47,7 @@
                          TextWrapping="Wrap"  />
                 <Button Grid.Column="1" x:Name="searchButton" Style="{StaticResource SearchButtonStyle}" Margin="0 5 5 5" Content="Search" HorizontalAlignment="Right" Click="searchButton_Click" />
             </Grid>
-            <TreeView Grid.Row="1" x:Name="fileTreeView" Margin="5">
+            <TreeView Grid.Row="1" x:Name="fileTreeView" Margin="5" SelectedItemChanged="fileTreeView_SelectedItemChanged">
                 <TreeView.Resources>
                     <ResourceDictionary Source="Dictionaries/TreeViewDictionary.xaml"></ResourceDictionary>
                 </TreeView.Resources>
