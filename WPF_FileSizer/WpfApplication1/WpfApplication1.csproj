@@ -55,9 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="BytesToUnitsConverter.cs" />
-    <Compile Include="SizesToGradientConverter.cs" />
-    <Compile Include="SizesToPercentageConverter.cs" />
+    <Compile Include="Converters\BytesToUnitsConverter.cs" />
+    <Compile Include="Converters\SizesToGradientConverter.cs" />
+    <Compile Include="Converters\SizesToPercentageConverter.cs" />
     <Page Include="Dictionaries\TreeViewDictionary.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
