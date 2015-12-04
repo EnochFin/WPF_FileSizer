@@ -29,15 +29,5 @@
             </Setter.Value>
         </Setter>
     </Style>
-
-  
-
-    <!--    <Style x:Key="TreeListView">-->
-<!--        <Setter Property="Template">-->
-<!--            <ControlTemplate TargetType="{x:Type ListView}">-->
-<!--                -->
-<!--            </ControlTemplate>-->
-<!--        </Setter>-->
-<!--    </Style>-->
     
 </ResourceDictionary>

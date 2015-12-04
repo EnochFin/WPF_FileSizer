@@ -6,7 +6,7 @@ namespace WpfApplication1
 {
     public class BytesToUnitsConverter : IValueConverter
     {
-        private static string[] units = new[] {"b", "kb", "mb", "gb", "tb"};
+        private static readonly string[] Units = {"b", "kb", "mb", "gb", "tb"};
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
@@ -17,7 +17,7 @@ namespace WpfApplication1
                 size /= 1024;
                 unit++;
             }
-            return size.ToString("F") + " " + units[unit];
+            return size.ToString("F") + " " + Units[unit];
 
         }
 
