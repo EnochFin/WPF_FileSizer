@@ -11,8 +11,6 @@ namespace WpfApplication1
 {
     class MyFileInfo
     {
-
-
         public FileType Type { get; private set; }
 
         public string Name { get; private set; }
@@ -35,35 +33,43 @@ namespace WpfApplication1
             SubFiles = new List<MyFileInfo>();
             FileAttributes attr = File.GetAttributes(path);
             LastEdit = Directory.GetLastWriteTime(path);
-
-            if (attr.HasFlag(FileAttributes.Directory))
+            try
             {
-                Type = FileType.Directory;
-                foreach (string dir in Directory.GetDirectories(path))
+                if (attr.HasFlag(FileAttributes.Directory))
                 {
-                    MyFileInfo subDir = new MyFileInfo(dir, this);
-                    SubFiles.Add(subDir);
-                    FileCount += subDir.FileCount;
-                }
+                    Type = FileType.Directory;
+                    foreach (string dir in Directory.GetDirectories(path))
+                    {
+                        MyFileInfo subDir = new MyFileInfo(dir, this);
+                        SubFiles.Add(subDir);
+                        FileCount += subDir.FileCount;
+                    }
 
-                foreach (string file in Directory.GetFiles(path))
-                {
-                    MyFileInfo subDir = new MyFileInfo(file, this);
-                    SubFiles.Add(subDir);
-                    FileCount += 1;
-                }
+                    foreach (string file in Directory.GetFiles(path))
+                    {
+                        MyFileInfo subDir = new MyFileInfo(file, this);
+                        SubFiles.Add(subDir);
+                        FileCount += 1;
+                    }
 
-                foreach (MyFileInfo f in SubFiles)
+                    foreach (MyFileInfo f in SubFiles)
+                    {
+                        Size += f.Size;
+                    }
+                }
+                else
                 {
-                    Size += f.Size;
+                    Type = FileType.File;
+                    Size = new FileInfo(path).Length;
+                    FileCount = 1;
+
                 }
             }
-            else
+            catch (UnauthorizedAccessException)
             {
-               Type = FileType.File;
-               Size = new FileInfo(path).Length;
-                FileCount = 1;
-
+                Size = -1;
+                FileCount = -1;
+                Type = FileType.BlockedDirectory;
             }
 
         }
@@ -80,6 +86,7 @@ namespace WpfApplication1
     public enum FileType
     {
         Directory,
+        BlockedDirectory,
         File
     };
 

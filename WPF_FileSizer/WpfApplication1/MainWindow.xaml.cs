@@ -35,8 +35,6 @@ namespace WpfApplication1
             editFileCount(selectedItem);
             editFileSize(selectedItem);
             editLastChanged(selectedItem);
-
-
         }
 
         private void editLastChanged(MyFileInfo selectedItem)
@@ -57,9 +55,13 @@ namespace WpfApplication1
             {
                 FileCountText.Text = FileCount + " File";
             }
-            else
+            else if (FileCount > 1)
             {
                 FileCountText.Text = FileCount + " Files";
+            }
+            else
+            {
+                FileCountText.Text = "N/A";
             }
 
         }
