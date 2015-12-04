@@ -55,6 +55,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="SizesToGradientConverter.cs" />
+    <Compile Include="SizesToPercentageConverter.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -74,6 +76,8 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MyDirectoryInfo.cs" />
+    <Compile Include="MyFileInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
