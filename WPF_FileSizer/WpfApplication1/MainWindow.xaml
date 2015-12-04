@@ -13,7 +13,7 @@
         <Style TargetType="{x:Type TreeViewItem}">
             <Style.Resources>
                 <!-- Set Highlight Background color -->
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Black" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#3000" />
             </Style.Resources>
 
             <Style.Triggers>
