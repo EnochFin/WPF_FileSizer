@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplication1"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="350" MinWidth="525" Height="350" Width="525" Icon="Images/folder.ico">
+        Title="File Viewer" MinHeight="350" MinWidth="525" Height="350" Width="525" Icon="Images/folder.ico">
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBar.ItemsPanel>
@@ -22,15 +22,15 @@
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
             <StatusBarItem Grid.Column="0">
-                <TextBlock>Something Here</TextBlock>
+                <TextBlock>Size of selection</TextBlock>
             </StatusBarItem>
             <Separator Grid.Column="1"/>
             <StatusBarItem Grid.Column="2">
-                <TextBlock>Something else here</TextBlock>
+                <TextBlock>Files in Selection</TextBlock>
             </StatusBarItem>
             <Separator Grid.Column="3"/>
             <StatusBarItem Grid.Column="4">
-                <TextBlock>One more thing here</TextBlock>
+                <TextBlock>Last Edit Of Selection</TextBlock>
             </StatusBarItem>
         </StatusBar>
         <Grid>

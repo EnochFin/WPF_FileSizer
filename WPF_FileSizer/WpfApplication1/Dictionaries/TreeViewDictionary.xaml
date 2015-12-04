@@ -4,6 +4,7 @@
 
     <wpfApplication1:SizesToGradientConverter x:Key="GradientConverter" />
     <wpfApplication1:SizesToPercentageConverter x:Key="PercentageConverter" />
+    <wpfApplication1:BytesToUnitsConverter x:Key="SizeConverter"></wpfApplication1:BytesToUnitsConverter>
     <HierarchicalDataTemplate ItemsSource="{Binding Path=SubFiles}"
                                               DataType="{x:Type wpfApplication1:MyFileInfo}">
         <StackPanel Orientation="Horizontal">
@@ -43,9 +44,8 @@
                 </Border>
                 <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Path=Name}" />
                 <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="5 0"
-                                           Text="{Binding Path=Size}">
+                                           Text="{Binding Converter={StaticResource SizeConverter}, Path=Size}">
                 </TextBlock>
-                <TextBlock Grid.Column="2" VerticalAlignment="Center" Text=" bytes"></TextBlock>
             </Grid>
         </StackPanel>
     </HierarchicalDataTemplate>
