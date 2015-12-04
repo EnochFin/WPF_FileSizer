@@ -6,24 +6,6 @@
         xmlns:local="clr-namespace:WpfApplication1"
         mc:Ignorable="d"
         Title="MainWindow" MinHeight="350" MinWidth="525" Height="350" Width="525" Icon="Images/folder.ico">
-    <Window.Resources>
-        <local:SizesToPercentageConverter x:Key="PercentageConverter" />
-        <local:SizesToGradientConverter x:Key="GradientConverter" />
-        <!--        http://stackoverflow.com/questions/18320842/changing-foreground-of-a-treeviewitem-upon-selection-->
-        <Style TargetType="{x:Type TreeViewItem}">
-            <Style.Resources>
-                <!-- Set Highlight Background color -->
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#3000" />
-            </Style.Resources>
-
-            <Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
-                    <!-- Set Foreground color -->
-                    <Setter Property="Foreground" Value="White" />
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </Window.Resources>
     <DockPanel>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBar.ItemsPanel>
@@ -67,51 +49,7 @@
             </Grid>
             <TreeView Grid.Row="1" x:Name="fileTreeView" Margin="5">
                 <TreeView.Resources>
-                    <HierarchicalDataTemplate ItemsSource="{Binding Path=Subdirectories}"
-                                              DataType="{x:Type local:MyDirectoryInfo }">
-                        <StackPanel Orientation="Horizontal">
-                            <Path Margin="0 0 5 0" Name="folder" Fill="#FF157EFB" StrokeThickness="1">
-                                <Path.Data>
-                                    <PathGeometry
-                                        Figures="M17 11 L15 7 L4.00276013 7 C2.89666625 7 2 7.88967395 2 8.991155 L2 27.008845 C2 28.1085295 2.89971268 29 3.99328744 29 L29.0067126 29 C30.1075748 29 31 28.1073772 31 27.0049107 L31 12.9950893 C31 11.8932319 30.1029399 11 28.9941413 11 L17 11 Z"
-                                        FillRule="evenodd" />
-                                </Path.Data>
-                                <Path.LayoutTransform>
-                                    <ScaleTransform ScaleX=".7" ScaleY=".7"></ScaleTransform>
-                                </Path.LayoutTransform>
-                            </Path>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                    <ColumnDefinition></ColumnDefinition>
-                                    <ColumnDefinition Width="75"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Border Margin="5" Grid.Column="3" BorderThickness="1" BorderBrush="Black">
-                                    <Border.Background>
-                                        <MultiBinding Converter="{StaticResource GradientConverter}">
-                                            <Binding Path="Size" />
-                                            <Binding Path="Parent.Size" />
-                                        </MultiBinding>
-                                    </Border.Background>
-                                    <TextBlock HorizontalAlignment="Center">
-                                        <TextBlock.Text>
-                                            <MultiBinding Converter="{StaticResource PercentageConverter}">
-                                                <Binding Path="Size"></Binding>
-                                                <Binding Path="Parent.Size"></Binding>
-                                            </MultiBinding>
-                                        </TextBlock.Text>
-                                    </TextBlock>
-
-                                </Border>
-                                <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Path=Name}" />
-                                <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="5 0"
-                                           Text="{Binding Path=Size}">
-                                </TextBlock>
-                                <TextBlock Grid.Column="2" VerticalAlignment="Center" Text=" bytes"></TextBlock>
-                            </Grid>
-                        </StackPanel>
-                    </HierarchicalDataTemplate>
+                   <ResourceDictionary Source="Dictionaries/TreeViewDictionary.xaml"></ResourceDictionary>
                 </TreeView.Resources>
             </TreeView>
         </Grid>

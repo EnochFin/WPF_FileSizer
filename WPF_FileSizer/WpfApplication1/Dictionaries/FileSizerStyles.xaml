@@ -1,6 +1,7 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:local="clr-namespace:WpfApplication1.Styles">
+                    xmlns:local="clr-namespace:WpfApplication1.Styles"
+                    xmlns:wpfApplication1="clr-namespace:WpfApplication1">
 
     <Style x:Key="SearchButtonStyle" TargetType="{x:Type Button}">
         <Style.Triggers>
@@ -28,4 +29,15 @@
             </Setter.Value>
         </Setter>
     </Style>
+
+  
+
+    <!--    <Style x:Key="TreeListView">-->
+<!--        <Setter Property="Template">-->
+<!--            <ControlTemplate TargetType="{x:Type ListView}">-->
+<!--                -->
+<!--            </ControlTemplate>-->
+<!--        </Setter>-->
+<!--    </Style>-->
+    
 </ResourceDictionary>

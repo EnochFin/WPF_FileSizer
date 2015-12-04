@@ -1,0 +1,67 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:wpfApplication1="clr-namespace:WpfApplication1">
+
+    <wpfApplication1:SizesToGradientConverter x:Key="GradientConverter" />
+    <wpfApplication1:SizesToPercentageConverter x:Key="PercentageConverter" />
+    <HierarchicalDataTemplate ItemsSource="{Binding Path=Subdirectories}"
+                                              DataType="{x:Type wpfApplication1:MyDirectoryInfo }">
+        <StackPanel Orientation="Horizontal">
+            <Path Margin="0 0 5 0" Name="folder" Fill="#FF157EFB" StrokeThickness="1">
+                <Path.Data>
+                    <PathGeometry
+                                        Figures="M17 11 L15 7 L4.00276013 7 C2.89666625 7 2 7.88967395 2 8.991155 L2 27.008845 C2 28.1085295 2.89971268 29 3.99328744 29 L29.0067126 29 C30.1075748 29 31 28.1073772 31 27.0049107 L31 12.9950893 C31 11.8932319 30.1029399 11 28.9941413 11 L17 11 Z"
+                                        FillRule="evenodd" />
+                </Path.Data>
+                <Path.LayoutTransform>
+                    <ScaleTransform ScaleX=".7" ScaleY=".7"></ScaleTransform>
+                </Path.LayoutTransform>
+            </Path>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="75"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Border Margin="5" Grid.Column="3" BorderThickness="1" BorderBrush="Black">
+                    <Border.Background>
+                        <MultiBinding Converter="{StaticResource GradientConverter}">
+                            <Binding Path="Size" />
+                            <Binding Path="Parent.Size" />
+                        </MultiBinding>
+                    </Border.Background>
+                    <TextBlock HorizontalAlignment="Center">
+                        <TextBlock.Text>
+                            <MultiBinding Converter="{StaticResource PercentageConverter}">
+                                <Binding Path="Size"></Binding>
+                                <Binding Path="Parent.Size"></Binding>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+
+                </Border>
+                <TextBlock Grid.Column="0" VerticalAlignment="Center" Text="{Binding Path=Name}" />
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="5 0"
+                                           Text="{Binding Path=Size}">
+                </TextBlock>
+                <TextBlock Grid.Column="2" VerticalAlignment="Center" Text=" bytes"></TextBlock>
+            </Grid>
+        </StackPanel>
+    </HierarchicalDataTemplate>
+
+    <!--        http://stackoverflow.com/questions/18320842/changing-foreground-of-a-treeviewitem-upon-selection-->
+    <Style TargetType="{x:Type TreeViewItem}">
+        <Style.Resources>
+            <!-- Set Highlight Background color -->
+            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#3000" />
+        </Style.Resources>
+
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <!-- Set Foreground color -->
+                <Setter Property="Foreground" Value="White" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+</ResourceDictionary>
