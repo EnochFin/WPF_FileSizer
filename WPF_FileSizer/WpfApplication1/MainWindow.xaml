@@ -22,15 +22,15 @@
                 </ItemsPanelTemplate>
             </StatusBar.ItemsPanel>
             <StatusBarItem Grid.Column="0">
-                <TextBlock x:Name="SizeText">Size of selection</TextBlock>
+                <TextBlock x:Name="SizeText">Size: 0 b</TextBlock>
             </StatusBarItem>
             <Separator Grid.Column="1"/>
             <StatusBarItem Grid.Column="2">
-                <TextBlock x:Name="FileCountText">Files in Selected Directory</TextBlock>
+                <TextBlock x:Name="FileCountText">0 Files</TextBlock>
             </StatusBarItem>
             <Separator Grid.Column="3"/>
             <StatusBarItem Grid.Column="4">
-                <TextBlock x:Name="LastEditText">Last Edit Of Selection</TextBlock>
+                <TextBlock x:Name="LastEditText">Last Edited: N/A</TextBlock>
             </StatusBarItem>
         </StatusBar>
         <Grid>
