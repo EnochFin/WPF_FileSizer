@@ -29,6 +29,10 @@ namespace WpfApplication1
         {
             FileCount = 0;
             Name = path.Substring(path.LastIndexOf("\\") + 1);
+            if (Name.Trim().Equals(""))
+            {
+                Name = path.Substring(0, path.LastIndexOf("\\"));
+            }
             Parent = parent;
             SubFiles = new List<MyFileInfo>();
             FileAttributes attr = File.GetAttributes(path);
