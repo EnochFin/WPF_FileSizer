@@ -65,14 +65,14 @@ namespace WpfApplication1
 
         private void editFileCount(MyFileInfo file)
         {
-            int FileCount = file.FileCount;
-            if (FileCount == 1)
+            int fileCount = file.FileCount;
+            if (fileCount == 1)
             {
-                FileCountText.Text = FileCount + " File";
+                FileCountText.Text = fileCount + " File";
             }
-            else if (FileCount > 1)
+            else if (fileCount > 1 || fileCount == 0)
             {
-                FileCountText.Text = FileCount + " Files";
+                FileCountText.Text = fileCount + " Files";
             }
             else
             {

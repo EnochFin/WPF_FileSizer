@@ -13,7 +13,7 @@ namespace WpfApplication1
             
             double size = System.Convert.ToDouble(value);
             string fileSize;
-            if (size > 0)
+            if (size >= 0)
             {
                 int unit = 0;
                 while (size > 1024)
