@@ -5,18 +5,32 @@
     <wpfApplication1:SizesToGradientConverter x:Key="GradientConverter" />
     <wpfApplication1:SizesToPercentageConverter x:Key="PercentageConverter" />
     <wpfApplication1:BytesToUnitsConverter x:Key="SizeConverter"></wpfApplication1:BytesToUnitsConverter>
+    
     <HierarchicalDataTemplate ItemsSource="{Binding Path=SubFiles}"
                                               DataType="{x:Type wpfApplication1:MyFileInfo}">
         <StackPanel Orientation="Horizontal">
-            <Path Margin="0 0 5 0" Name="folder" Fill="#FF157EFB" StrokeThickness="1">
-                <Path.Data>
-                    <PathGeometry
-                                        Figures="M17 11 L15 7 L4.00276013 7 C2.89666625 7 2 7.88967395 2 8.991155 L2 27.008845 C2 28.1085295 2.89971268 29 3.99328744 29 L29.0067126 29 C30.1075748 29 31 28.1073772 31 27.0049107 L31 12.9950893 C31 11.8932319 30.1029399 11 28.9941413 11 L17 11 Z"
-                                        FillRule="evenodd" />
-                </Path.Data>
-                <Path.LayoutTransform>
-                    <ScaleTransform ScaleX=".7" ScaleY=".7"></ScaleTransform>
-                </Path.LayoutTransform>
+            <Path Margin="0 0 5 0" Name="Image" StrokeThickness="1">
+                <Path.Style>
+                    <Style TargetType="{x:Type Path}">
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Path=Type}" Value="{x:Static wpfApplication1:FileType.Directory}">
+                                <Setter Property="Fill" Value="#FF157EFB"></Setter>
+                                <Setter Property="Data">
+                                    <Setter.Value>
+                                        <PathGeometry
+                                            Figures="M17 11 L15 7 L4.00276013 7 C2.89666625 7 2 7.88967395 2 8.991155 L2 27.008845 C2 28.1085295 2.89971268 29 3.99328744 29 L29.0067126 29 C30.1075748 29 31 28.1073772 31 27.0049107 L31 12.9950893 C31 11.8932319 30.1029399 11 28.9941413 11 L17 11 Z"
+                                            FillRule="evenodd" />
+                                    </Setter.Value>
+                                </Setter>
+                                <Setter Property="LayoutTransform">
+                                    <Setter.Value>
+                                        <ScaleTransform ScaleX=".7" ScaleY=".7"></ScaleTransform>
+                                    </Setter.Value>
+                                </Setter>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Path.Style>
             </Path>
             <Grid>
                 <Grid.ColumnDefinitions>
