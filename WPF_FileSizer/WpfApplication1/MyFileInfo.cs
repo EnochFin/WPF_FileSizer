@@ -1,4 +1,5 @@
 ﻿using System;
+using System.CodeDom;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -10,6 +11,10 @@ namespace WpfApplication1
 {
     class MyFileInfo
     {
+
+
+        public FileType Type { get; private set; }
+
         public string Name { get; private set; }
 
         public long Size { get; private set; }
@@ -33,6 +38,7 @@ namespace WpfApplication1
 
             if (attr.HasFlag(FileAttributes.Directory))
             {
+                Type = FileType.Directory;
                 foreach (string dir in Directory.GetDirectories(path))
                 {
                     MyFileInfo subDir = new MyFileInfo(dir, this);
@@ -54,6 +60,7 @@ namespace WpfApplication1
             }
             else
             {
+               Type = FileType.File;
                Size = new FileInfo(path).Length;
                 FileCount = 1;
 
@@ -69,4 +76,11 @@ namespace WpfApplication1
         }
 
     }
+
+    public enum FileType
+    {
+        Directory,
+        File
+    };
+
 }
