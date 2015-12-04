@@ -5,12 +5,52 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplication1"
         mc:Ignorable="d"
-        Title="MainWindow" MinHeight="350" MinWidth="525" Height="350" Width="525">
+        Title="MainWindow" MinHeight="350" MinWidth="525" Height="350" Width="525" Icon="Images/folder.ico">
     <Window.Resources>
         <local:SizesToPercentageConverter x:Key="PercentageConverter" />
         <local:SizesToGradientConverter x:Key="GradientConverter" />
+        <!--        http://stackoverflow.com/questions/18320842/changing-foreground-of-a-treeviewitem-upon-selection-->
+        <Style TargetType="{x:Type TreeViewItem}">
+            <Style.Resources>
+                <!-- Set Highlight Background color -->
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Black" />
+            </Style.Resources>
+
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <!-- Set Foreground color -->
+                    <Setter Property="Foreground" Value="White" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
     </Window.Resources>
     <DockPanel>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem Grid.Column="0">
+                <TextBlock>Something Here</TextBlock>
+            </StatusBarItem>
+            <Separator Grid.Column="1"/>
+            <StatusBarItem Grid.Column="2">
+                <TextBlock>Something else here</TextBlock>
+            </StatusBarItem>
+            <Separator Grid.Column="3"/>
+            <StatusBarItem Grid.Column="4">
+                <TextBlock>One more thing here</TextBlock>
+            </StatusBarItem>
+        </StatusBar>
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"></RowDefinition>
