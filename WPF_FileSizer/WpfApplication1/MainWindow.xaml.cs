@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -26,15 +27,29 @@ namespace WpfApplication1
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
-            fileTreeView.ItemsSource = new MyFileInfo(textDirectory.Text).SubFiles;
+            string path = textDirectory.Text;
+            if (Directory.Exists(path))
+            {
+                fileTreeView.ItemsSource = new MyFileInfo(path).SubFiles;
+            }
+            else
+            {
+                List<String> val = new List<string>();
+                val.Add("No directory \"" + path + "\" exists");
+                fileTreeView.ItemsSource = val;
+            }
+            
         }
 
         private void fileTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
         {
-            MyFileInfo selectedItem = (MyFileInfo)fileTreeView.SelectedItem;
-            editFileCount(selectedItem);
-            editFileSize(selectedItem);
-            editLastChanged(selectedItem);
+            MyFileInfo selectedItem = fileTreeView.SelectedItem as MyFileInfo;
+            if (selectedItem != null)
+            {
+                editFileCount(selectedItem);
+                editFileSize(selectedItem);
+                editLastChanged(selectedItem);
+            }
         }
 
         private void editLastChanged(MyFileInfo selectedItem)
