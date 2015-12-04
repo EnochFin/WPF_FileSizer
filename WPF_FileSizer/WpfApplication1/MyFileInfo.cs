@@ -28,11 +28,6 @@ namespace WpfApplication1
         private MyFileInfo(string path, MyFileInfo parent)
         {
             FileCount = 0;
-            Name = path.Substring(path.LastIndexOf("\\") + 1);
-            if (Name.Trim().Equals(""))
-            {
-                Name = path.Substring(0, path.LastIndexOf("\\"));
-            }
             Parent = parent;
             SubFiles = new List<MyFileInfo>();
             FileAttributes attr = File.GetAttributes(path);
@@ -76,6 +71,13 @@ namespace WpfApplication1
                 Type = FileType.BlockedDirectory;
             }
 
+            Name = path.Substring(path.LastIndexOf("\\") + 1);
+            if (Name.Trim().Equals(""))
+            {
+                Name = path;
+                Type = FileType.RootDrive;
+            }
+
         }
 
         public MyFileInfo(String path)
@@ -90,6 +92,7 @@ namespace WpfApplication1
     public enum FileType
     {
         Directory,
+        RootDrive,
         BlockedDirectory,
         File
     };
