@@ -11,7 +11,9 @@ namespace WpfApplication1
     class MyFileInfo
     {
         public string Name { get; private set; }
-        public double Size { get; private set; }
+
+        public long Size { get; private set; }
+
         public MyFileInfo Parent { get; private set; }
 
         public IList<MyFileInfo> SubFiles { get; set; }
@@ -43,10 +45,7 @@ namespace WpfApplication1
             else
             {
                Size = new FileInfo(path).Length;
-                Size /= 1024;
             }
-
-
 
         }
 
@@ -56,5 +55,6 @@ namespace WpfApplication1
             SubFiles = new List<MyFileInfo>();
             SubFiles.Add(new MyFileInfo(path, this));
         }
+
     }
 }
