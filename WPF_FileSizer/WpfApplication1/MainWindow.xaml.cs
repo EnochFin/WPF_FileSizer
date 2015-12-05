@@ -19,6 +19,7 @@ namespace WpfApplication1
     /// </summary>
     public partial class MainWindow : Window
     {
+        IList<MyFileInfo> startDir;
         public MainWindow()
         {
             InitializeComponent();
@@ -26,7 +27,8 @@ namespace WpfApplication1
 
         private void searchButton_Click(object sender, RoutedEventArgs e)
         {
-            fileTreeView.ItemsSource = new MyFileInfo(textDirectory.Text).SubFiles;
+            startDir = new MyFileInfo(textDirectory.Text).SubFiles;
+            fileTreeView.ItemsSource = startDir;
         }
 
         private void fileTreeView_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
@@ -63,6 +65,10 @@ namespace WpfApplication1
             }
 
         }
-        
+
+        private void sortA_ZButton_Click(object sender, RoutedEventArgs e)
+        {
+            fileTreeView.Items.Refresh();
+        }
     }
 }

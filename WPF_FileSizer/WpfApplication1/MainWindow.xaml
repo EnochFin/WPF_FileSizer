@@ -42,10 +42,12 @@
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
                 <TextBox Grid.Column="0" x:Name="textDirectory" Margin="5" HorizontalAlignment="Stretch"
                          TextWrapping="Wrap"  />
                 <Button Grid.Column="1" x:Name="searchButton" Style="{StaticResource SearchButtonStyle}" Margin="0 5 5 5" Content="Search" HorizontalAlignment="Right" Click="searchButton_Click" />
+                <Button Grid.Column="2" x:Name="sortA_ZButton" Style="{StaticResource SortA-ZButton}" Margin="0 5 5 5" Content="Search" HorizontalAlignment="Right" Click="sortA_ZButton_Click"/>
             </Grid>
             <TreeView Grid.Row="1" x:Name="fileTreeView" Margin="5" SelectedItemChanged="fileTreeView_SelectedItemChanged">
                 <TreeView.Resources>
