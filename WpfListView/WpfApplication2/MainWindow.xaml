@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplication2"
         mc:Ignorable="d"
-        ResizeMode="NoResize"
-        Title="MainWindow" Height="350" Width="573.301" Loaded="Window_Loaded">
+        Width="500"
+        Height="300"
+        Title="MainWindow" MinHeight="150" MinWidth="500" Loaded="Window_Loaded">
     <Window.Resources>
         <CollectionViewSource x:Key="myFileItemViewSource" d:DesignSource="{d:DesignInstance {x:Type local:MyFileInfo}, CreateList=True}"/>
         <local:SizesToGradientConverter x:Key="GradientConverter"/>
@@ -106,10 +107,10 @@
         <Button x:Name="backButton" Margin="10,5,0,0" Content="Back" HorizontalAlignment="Left" Click="backButton_Click" Width="40" Height="28" VerticalAlignment="Top" />
         <TextBox Grid.Column="0" x:Name="textDirectory" Margin="55,5,226,0" HorizontalAlignment="Stretch"
                          TextWrapping="Wrap" Height="28" VerticalAlignment="Top"  />
-        <TextBox Grid.Column="0" x:Name="searchText" Margin="384,5,48,0" HorizontalAlignment="Stretch"
-        	TextWrapping="Wrap" Height="28" VerticalAlignment="Top"  />
+        <TextBox Grid.Column="0" x:Name="searchText" Margin="309,5,48,0" HorizontalAlignment="Stretch"
+        	TextWrapping="Wrap" Height="28" VerticalAlignment="Top"   />
         <Button x:Name="searchButton" Style="{StaticResource SearchButtonStyle}" Margin="0,5,10,0" Content="Search" HorizontalAlignment="Right" Click="searchButton_click" Width="33" Height="28" VerticalAlignment="Top" />
-        <Button x:Name="goToButton" Margin="346,5,0,0" Content="->" HorizontalAlignment="Left" Click="goToButton_Click" Width="33" Height="28" VerticalAlignment="Top" />
+        <Button x:Name="goToButton" Margin="0,5,188,0" Content="->" HorizontalAlignment="Right" Click="goToButton_Click" Width="33" Height="28" VerticalAlignment="Top" />
 
     </Grid>
 </Window>

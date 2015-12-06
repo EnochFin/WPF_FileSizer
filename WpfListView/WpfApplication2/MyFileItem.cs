@@ -32,9 +32,6 @@ namespace WpfApplication2
             FileAttributes attr = File.GetAttributes(path);
             LastEdit = Directory.GetLastWriteTime(path);
             Parent = parent;
-
-            if (attr.HasFlag(FileAttributes.Directory))
-            {
                 if (attr.HasFlag(FileAttributes.Directory))
                 {
                     Type = FileType.Directory;
@@ -64,12 +61,7 @@ namespace WpfApplication2
                     FileCount = 1;
 
                 }
-            }
-            catch (UnauthorizedAccessException)
-            {
-                Type = FileType.File;
-                Size = new FileInfo(path).Length;
-                FileCount = 1;
+            
 
             Name = path.Substring(path.LastIndexOf("\\") + 1);
             if (Name.Trim().Equals(""))
@@ -85,6 +77,7 @@ namespace WpfApplication2
         public enum FileType
         {
             Directory,
-            File
+            File,
+            RootDrive
         };
 }
