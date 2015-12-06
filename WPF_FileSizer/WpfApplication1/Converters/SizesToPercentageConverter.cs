@@ -2,7 +2,7 @@
 using System.Globalization;
 using System.Windows.Data;
 
-namespace WpfApplication2
+namespace WpfApplication1
 {
     public class SizesToPercentageConverter : IMultiValueConverter
     {
