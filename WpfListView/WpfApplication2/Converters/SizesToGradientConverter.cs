@@ -3,7 +3,7 @@ using System.Globalization;
 using System.Windows.Data;
 using System.Windows.Media;
 
-namespace WpfApplication1
+namespace WpfApplication2
 {
     public class SizesToGradientConverter : IMultiValueConverter
     {

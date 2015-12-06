@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using System.Windows.Data;
 
-namespace WpfApplication1
+namespace WpfApplication2
 {
     public class BytesToUnitsConverter : IValueConverter
     {
