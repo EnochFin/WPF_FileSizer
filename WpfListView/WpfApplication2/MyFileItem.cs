@@ -35,32 +35,47 @@ namespace WpfApplication2
 
             if (attr.HasFlag(FileAttributes.Directory))
             {
-                Type = FileType.Directory;
-                foreach (string dir in Directory.GetDirectories(path))
+                if (attr.HasFlag(FileAttributes.Directory))
                 {
-                    MyFileInfo subDir = new MyFileInfo(dir, this);
-                    SubFiles.Add(subDir);
-                    FileCount += subDir.FileCount;
-                }
+                    Type = FileType.Directory;
+                    foreach (string dir in Directory.GetDirectories(path))
+                    {
+                        MyFileInfo subDir = new MyFileInfo(dir, this);
+                        SubFiles.Add(subDir);
+                        FileCount += subDir.FileCount;
+                    }
 
-                foreach (string file in Directory.GetFiles(path))
-                {
-                    MyFileInfo subDir = new MyFileInfo(file, this);
-                    SubFiles.Add(subDir);
-                    FileCount += 1;
-                }
+                    foreach (string file in Directory.GetFiles(path))
+                    {
+                        MyFileInfo subDir = new MyFileInfo(file, this);
+                        SubFiles.Add(subDir);
+                        FileCount += 1;
+                    }
 
-                foreach (MyFileInfo f in SubFiles)
+                    foreach (MyFileInfo f in SubFiles)
+                    {
+                        Size += f.Size;
+                    }
+                }
+                else
                 {
-                    Size += f.Size;
+                    Type = FileType.File;
+                    Size = new FileInfo(path).Length;
+                    FileCount = 1;
+
                 }
             }
-            else
+            catch (UnauthorizedAccessException)
             {
                 Type = FileType.File;
                 Size = new FileInfo(path).Length;
                 FileCount = 1;
 
+            Name = path.Substring(path.LastIndexOf("\\") + 1);
+            if (Name.Trim().Equals(""))
+            {
+                Name = path;
+                Type = FileType.RootDrive;
             }
 
         }

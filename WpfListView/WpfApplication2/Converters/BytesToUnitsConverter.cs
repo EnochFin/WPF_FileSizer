@@ -10,14 +10,24 @@ namespace WpfApplication2
 
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
+            
             double size = System.Convert.ToDouble(value);
-            int unit = 0;
-            while (size > 1024)
+            string fileSize;
+            if (size >= 0)
             {
-                size /= 1024;
-                unit++;
+                int unit = 0;
+                while (size > 1024)
+                {
+                    size /= 1024;
+                    unit++;
+                }
+                fileSize = size.ToString("F") + " " + Units[unit];
             }
-            return size.ToString("F") + " " + Units[unit];
+            else
+            {
+                fileSize = "N/A";
+            }
+            return fileSize;
 
         }
 
