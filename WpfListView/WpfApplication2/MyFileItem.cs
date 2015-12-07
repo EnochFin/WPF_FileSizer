@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -25,50 +26,58 @@ namespace WpfApplication2
 
         public MyFileInfo(string path, MyFileInfo parent)
         {
-            FileCount = 0;
-            FullPath = path;
-            Name = path.Substring(path.LastIndexOf("\\") + 1);
-            SubFiles = new List<MyFileInfo>();
-            FileAttributes attr = File.GetAttributes(path);
-            LastEdit = Directory.GetLastWriteTime(path);
-            Parent = parent;
-
-            if (attr.HasFlag(FileAttributes.Directory))
+            try
             {
-                Type = FileType.Directory;
-                foreach (string dir in Directory.GetDirectories(path))
-                {
-                    MyFileInfo subDir = new MyFileInfo(dir, this);
-                    SubFiles.Add(subDir);
-                    FileCount += subDir.FileCount;
-                }
+                FileCount = 0;
+                FullPath = path;
+                Name = path.Substring(path.LastIndexOf("\\") + 1);
+                SubFiles = new List<MyFileInfo>();
+                FileAttributes attr = File.GetAttributes(path);
+                LastEdit = Directory.GetLastWriteTime(path);
+                Parent = parent;
 
-                foreach (string file in Directory.GetFiles(path))
+                if (attr.HasFlag(FileAttributes.Directory))
                 {
-                    MyFileInfo subDir = new MyFileInfo(file, this);
-                    SubFiles.Add(subDir);
-                    FileCount += 1;
-                }
+                    Type = FileType.Directory;
+                    foreach (string dir in Directory.GetDirectories(path))
+                    {
+                        MyFileInfo subDir = new MyFileInfo(dir, this);
+                        SubFiles.Add(subDir);
+                        FileCount += subDir.FileCount;
+                    }
 
-                foreach (MyFileInfo f in SubFiles)
+                    foreach (string file in Directory.GetFiles(path))
+                    {
+                        MyFileInfo subDir = new MyFileInfo(file, this);
+                        SubFiles.Add(subDir);
+                        FileCount += 1;
+                    }
+
+                    foreach (MyFileInfo f in SubFiles)
+                    {
+                        Size += f.Size;
+                    }
+                }
+                else
                 {
-                    Size += f.Size;
+                    Type = FileType.File;
+                    Size = new FileInfo(path).Length;
+                    FileCount = 1;
+
+                }
+                Name = path.Substring(path.LastIndexOf("\\") + 1);
+                if (Name.Trim().Equals(""))
+                {
+                    Name = path;
+                    Type = FileType.RootDrive;
                 }
             }
-            else
+            catch (UnauthorizedAccessException)
             {
-                Type = FileType.File;
-                Size = new FileInfo(path).Length;
-                FileCount = 1;
-
+                Type = FileType.Unauthorized;
+                Size = -1;
+                FileCount = -1;
             }
-            Name = path.Substring(path.LastIndexOf("\\") + 1);
-            if (Name.Trim().Equals(""))
-            {
-                Name = path;
-                Type = FileType.RootDrive;
-            }
-
         }
 
 
@@ -77,6 +86,7 @@ namespace WpfApplication2
         {
             Directory,
             File,
-            RootDrive
+            RootDrive,
+            Unauthorized
         };
 }
