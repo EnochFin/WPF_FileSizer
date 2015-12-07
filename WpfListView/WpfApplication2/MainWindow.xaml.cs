@@ -28,7 +28,7 @@ namespace WpfApplication2
         {
             InitializeComponent();
             _currentItem = new MyFileInfo(null);
-            searchText.TextChanged += (sender, e) => FilterResults(searchText.Text);
+            SearchText.TextChanged += (sender, e) => FilterResults(SearchText.Text);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -39,7 +39,7 @@ namespace WpfApplication2
 
         private void myFileItemListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var item = myFileItemListView.SelectedItem as MyFileInfo;
+            var item = MyFileItemListView.SelectedItem as MyFileInfo;
             if (item != null)
             {
                 if (item.Type == FileType.Directory)
@@ -66,10 +66,10 @@ namespace WpfApplication2
 
         private void searchButton_click(object sender, RoutedEventArgs e)
         {
-            string path = textDirectory.Text;
+            string path = TextDirectory.Text;
             if (Directory.Exists(path))
             {
-                _currentItem = new MyFileInfo(textDirectory.Text, _currentItem.Parent);
+                _currentItem = new MyFileInfo(TextDirectory.Text, _currentItem.Parent);
                 _myFileItemViewSource.Source = _currentItem.SubFiles;
             }
         }

@@ -27,14 +27,14 @@
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
-            <Button x:Name="backButton"  Grid.Column="0" Margin="5 0" Content="Back" Click="backButton_Click"/>
-            <TextBox x:Name="textDirectory" Grid.Column="1" Margin="5 0" TextWrapping="Wrap"/>
-            <Button x:Name="searchButton" Grid.Column="2" Margin="5 0" Style="{StaticResource SearchButtonStyle}" Content="Search" Click="searchButton_click"/>
-            <xtnd:WatermarkTextBox Name="searchText" Watermark="Filter" Grid.Column="3" Margin="5 0" TextWrapping="Wrap"/>
+            <Button x:Name="BackButton"  Grid.Column="0" Margin="5 0" Content="Back" Click="backButton_Click"/>
+            <TextBox x:Name="TextDirectory" Grid.Column="1" Margin="5 0" TextWrapping="Wrap"/>
+            <Button x:Name="SearchButton" Grid.Column="2" Margin="5 0" Style="{StaticResource SearchButtonStyle}" Content="Search" Click="searchButton_click"/>
+            <xtnd:WatermarkTextBox Name="SearchText" Watermark="Filter" Grid.Column="3" Margin="5 0" TextWrapping="Wrap"/>
             
             
         </Grid>
-        <ListView x:Name="myFileItemListView" Margin="5" Grid.Row="1" ItemsSource="{Binding}" SelectionMode="Single" MouseDoubleClick="myFileItemListView_MouseDoubleClick" >
+        <ListView x:Name="MyFileItemListView" Margin="5" Grid.Row="1" ItemsSource="{Binding}" SelectionMode="Single" MouseDoubleClick="myFileItemListView_MouseDoubleClick" >
             <ListView.ItemContainerStyle>
                 <Style>
                     <Setter Property="Control.HorizontalContentAlignment" Value="Stretch"/>
@@ -43,7 +43,7 @@
             </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
-                    <GridViewColumn x:Name="nameColumn"  Width="80">
+                    <GridViewColumn x:Name="NameColumn"  Width="80">
                         <GridViewColumnHeader  Content="Name" Click="alphaSortButton_Click"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -77,7 +77,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="sizeColumn" Width="80">
+                    <GridViewColumn x:Name="SizeColumn" Width="80">
 
                         <GridViewColumnHeader  Content="Size" Click="SizeSortButton_Click"/>
                         <GridViewColumn.CellTemplate>
@@ -86,7 +86,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="typeColumn" Width="80">
+                    <GridViewColumn x:Name="TypeColumn" Width="80">
                         <GridViewColumnHeader Content="Type"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -94,7 +94,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="fileCountColumn" Width="80">
+                    <GridViewColumn x:Name="FileCountColumn" Width="80">
                         <GridViewColumnHeader Content="File Count" Click="FileCountButton_Click"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
@@ -102,7 +102,7 @@
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
-                    <GridViewColumn x:Name="lastEditColumn" Width="120">
+                    <GridViewColumn x:Name="LastEditColumn" Width="120">
                         <GridViewColumnHeader Content ="Last Edit" Click="LastEditButton_Click"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
