@@ -42,7 +42,7 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn x:Name="NameColumn"  Width="80">
-                        <GridViewColumnHeader  Content="Name" Click="alphaSortButton_Click"/>
+                        <GridViewColumnHeader x:Name="NameHeader" Content="Name"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Label Margin="-6,-1" Content="{Binding Name, Mode=OneWay}"/>
@@ -50,7 +50,7 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="PercentageColumn" Width="100">
-                        <GridViewColumnHeader Content="Percentage"/>
+                        <GridViewColumnHeader x:Name="PercentHeader"  Content="Percentage"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Grid>
@@ -77,7 +77,7 @@
                     </GridViewColumn>
                     <GridViewColumn x:Name="SizeColumn" Width="80">
 
-                        <GridViewColumnHeader  Content="Size" Click="SizeSortButton_Click"/>
+                        <GridViewColumnHeader x:Name="SizeHeader"  Content="Size"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Label Margin="-6,-1" Content="{Binding Converter = {StaticResource BytesConverter}, Path=Size}"/>
@@ -85,7 +85,7 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="TypeColumn" Width="80">
-                        <GridViewColumnHeader Content="Type"/>
+                        <GridViewColumnHeader x:Name="TypeHeader" Content="Type"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Label Margin="-6,-1" Content="{Binding Type, Mode=OneWay}"/>
@@ -93,7 +93,7 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="FileCountColumn" Width="80">
-                        <GridViewColumnHeader Content="File Count" Click="FileCountButton_Click"/>
+                        <GridViewColumnHeader x:Name="FileCountHeader" Content="File Count"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Label Margin="6,-1,-6,-1" Content="{Binding FileCount, Mode=OneWay}"/>
@@ -101,7 +101,7 @@
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
                     <GridViewColumn x:Name="LastEditColumn" Width="120">
-                        <GridViewColumnHeader Content ="Last Edit" Click="LastEditButton_Click"/>
+                        <GridViewColumnHeader x:Name="LastEditHeader"  Content ="Last Edit"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
                                 <Label Margin="-6,-1" Content="{Binding LastEdit, Mode=OneWay}"/>
