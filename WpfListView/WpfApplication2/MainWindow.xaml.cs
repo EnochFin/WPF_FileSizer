@@ -34,7 +34,7 @@ namespace WpfApplication2
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _myFileItemViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("myFileItemViewSource")));
+            _myFileItemViewSource = ((CollectionViewSource)(FindResource("MyFileItemViewSource")));
             _myFileItemViewSource.Source = _currentItem.SubFiles;           
         }
 
