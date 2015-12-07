@@ -9,22 +9,26 @@ namespace WpfApplication2
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture)
         {
-            Double currentSize = System.Convert.ToDouble(values[0]);
-            Double parentSize = System.Convert.ToDouble(values[1]);
+            double currentSize = System.Convert.ToDouble(values[0]);
+            double parentSize = System.Convert.ToDouble(values[1]);
             double percentage;
-            if (parentSize != 0)
+            if (currentSize > 0)
             {
-                percentage = currentSize/parentSize;
+                if (parentSize != 0)
+                {
+                    percentage = currentSize/parentSize;
+                }
+                else
+                {
+                    percentage = 1;
+                }
+                LinearGradientBrush brush = new LinearGradientBrush();
+                brush.GradientStops.Add(new GradientStop(Colors.DeepSkyBlue, 0));
+                brush.GradientStops.Add(new GradientStop(Colors.DeepSkyBlue, percentage));
+                brush.GradientStops.Add(new GradientStop(Colors.Transparent, percentage));
+                return brush;
             }
-            else
-            {
-                percentage = 1;
-            }
-            LinearGradientBrush brush = new LinearGradientBrush();
-            brush.GradientStops.Add(new GradientStop(Colors.DeepSkyBlue, 0));
-            brush.GradientStops.Add(new GradientStop(Colors.DeepSkyBlue, percentage));
-            brush.GradientStops.Add(new GradientStop(Colors.Transparent, percentage));
-            return brush;
+            return null;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)
