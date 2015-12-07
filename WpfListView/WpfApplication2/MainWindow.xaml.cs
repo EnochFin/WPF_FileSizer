@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -45,7 +46,7 @@ namespace WpfApplication2
                 if (item.Type == FileType.Directory)
                 {
                     _currentItem = item;
-                    _myFileItemViewSource.Source = _currentItem.SubFiles;
+                    UpdateListViewSource(_currentItem.SubFiles);
                 }
                 else
                 {
@@ -60,7 +61,7 @@ namespace WpfApplication2
             if (_currentItem.Parent != null)
             {
                 _currentItem = _currentItem.Parent;
-                _myFileItemViewSource.Source = _currentItem.SubFiles;
+                UpdateListViewSource(_currentItem.SubFiles);
             }
         }
 
@@ -70,7 +71,7 @@ namespace WpfApplication2
             if (Directory.Exists(path))
             {
                 _currentItem = new MyFileInfo(TextDirectory.Text, _currentItem.Parent);
-                _myFileItemViewSource.Source = _currentItem.SubFiles;
+                UpdateListViewSource(_currentItem.SubFiles);
             }
         }
 
@@ -105,6 +106,32 @@ namespace WpfApplication2
                 var result = _currentItem.SubFiles.Where(fileinfo => fileinfo.Name.ToUpper().Contains(filterTerm.ToUpper()));
                 _myFileItemViewSource.Source = result;
             }
+        }
+
+        private void UpdateColumns()
+        {
+            foreach (GridViewColumn column in ((GridView) MyFileItemListView.View).Columns)
+            {
+                if (column != PercentageColumn)
+                UpdateColumnWidth(column);
+            }
+        }
+
+
+        private void UpdateColumnWidth(GridViewColumn column)
+        {
+            if (double.IsNaN(column.Width))
+            {
+                column.Width = column.ActualWidth;
+            }
+
+            column.Width = double.NaN;
+        }
+
+        private void UpdateListViewSource(IList<MyFileInfo> source)
+        {
+            _myFileItemViewSource.Source = source;
+            UpdateColumns();
         }
     }
 }
