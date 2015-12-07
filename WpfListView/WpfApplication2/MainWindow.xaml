@@ -64,6 +64,21 @@
                                                         </Setter.Value>
                                                     </Setter>
                                                 </DataTrigger>
+                                                <DataTrigger Binding="{Binding Path=Type}" Value="{x:Static local:FileType.Unauthorized}">
+                                                    <Setter Property="Fill" Value="Gray"></Setter>
+                                                    <Setter Property="Data">
+                                                        <Setter.Value>
+                                                            <PathGeometry
+                                            Figures="M17 11 L15 7 L4.00276013 7 C2.89666625 7 2 7.88967395 2 8.991155 L2 27.008845 C2 28.1085295 2.89971268 29 3.99328744 29 L29.0067126 29 C30.1075748 29 31 28.1073772 31 27.0049107 L31 12.9950893 C31 11.8932319 30.1029399 11 28.9941413 11 L17 11 Z"
+                                            FillRule="evenodd" />
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                    <Setter Property="LayoutTransform">
+                                                        <Setter.Value>
+                                                            <ScaleTransform ScaleX=".7" ScaleY=".7"></ScaleTransform>
+                                                        </Setter.Value>
+                                                    </Setter>
+                                                </DataTrigger>
                                                 <DataTrigger Binding="{Binding Path=Type}" Value="{x:Static local:FileType.File}">
                                                     <Setter Property="Fill" Value="#FF157EFB"></Setter>
                                                     <Setter Property="Data">
@@ -131,7 +146,19 @@
                         <GridViewColumnHeader x:Name="FileCountHeader" Content="File Count"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>
-                                <Label Margin="6,-1,-6,-1" Content="{Binding FileCount, Mode=OneWay}"/>
+                                <Label Margin="6,-1,-6,-1">
+                                    <Label.Style>
+                                        <Style TargetType="{x:Type Label}">
+                                            <Setter Property="Content" Value="{Binding FileCount}">
+                                            </Setter>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding FileCount}" Value="-1">
+                                                    <Setter Property="Content" Value="N\A"></Setter>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Label.Style>
+                                </Label>
                             </DataTemplate>
                         </GridViewColumn.CellTemplate>
                     </GridViewColumn>
