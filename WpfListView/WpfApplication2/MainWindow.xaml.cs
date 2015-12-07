@@ -22,30 +22,30 @@ namespace WpfApplication2
     /// </summary>
     public partial class MainWindow : Window
     {
-        private CollectionViewSource myFileItemViewSource;
-        public MyFileInfo currentItem;
+        private CollectionViewSource _myFileItemViewSource;
+        private MyFileInfo _currentItem;
         public MainWindow()
         {
             InitializeComponent();
-            currentItem = new MyFileInfo(null);
+            _currentItem = new MyFileInfo(null);
             searchText.TextChanged += (sender, e) => FilterResults(searchText.Text);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            myFileItemViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("myFileItemViewSource")));
-            myFileItemViewSource.Source = currentItem.SubFiles;           
+            _myFileItemViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("myFileItemViewSource")));
+            _myFileItemViewSource.Source = _currentItem.SubFiles;           
         }
 
         private void myFileItemListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            var item = ((FrameworkElement)e.OriginalSource).DataContext as MyFileInfo;
+            var item = myFileItemListView.SelectedItem as MyFileInfo;
             if (item != null)
             {
                 if (item.Type == FileType.Directory)
                 {
-                    currentItem = item;
-                    myFileItemViewSource.Source = currentItem.SubFiles;
+                    _currentItem = item;
+                    _myFileItemViewSource.Source = _currentItem.SubFiles;
                 }
                 else
                 {
@@ -57,10 +57,10 @@ namespace WpfApplication2
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
-            if (currentItem.Parent != null)
+            if (_currentItem.Parent != null)
             {
-                currentItem = currentItem.Parent;
-                myFileItemViewSource.Source = currentItem.SubFiles;
+                _currentItem = _currentItem.Parent;
+                _myFileItemViewSource.Source = _currentItem.SubFiles;
             }
         }
 
@@ -69,41 +69,41 @@ namespace WpfApplication2
             string path = textDirectory.Text;
             if (Directory.Exists(path))
             {
-                currentItem = new MyFileInfo(textDirectory.Text, currentItem.Parent);
-                myFileItemViewSource.Source = currentItem.SubFiles;
+                _currentItem = new MyFileInfo(textDirectory.Text, _currentItem.Parent);
+                _myFileItemViewSource.Source = _currentItem.SubFiles;
             }
         }
 
         private void alphaSortButton_Click(object sender, RoutedEventArgs e)
         {
-            var result = currentItem.SubFiles.OrderBy(fileinfo => fileinfo.Name);
-            myFileItemViewSource.Source = result;
+            var result = _currentItem.SubFiles.OrderBy(fileinfo => fileinfo.Name);
+            _myFileItemViewSource.Source = result;
         }
 
         private void SizeSortButton_Click(object sender, RoutedEventArgs e)
         {
-            var result = currentItem.SubFiles.OrderBy(fileinfo => fileinfo.Size);
-            myFileItemViewSource.Source = result;
+            var result = _currentItem.SubFiles.OrderBy(fileinfo => fileinfo.Size);
+            _myFileItemViewSource.Source = result;
         }
 
         private void FileCountButton_Click(object sender, RoutedEventArgs e)
         {
-            var result = currentItem.SubFiles.OrderBy(fileinfo => fileinfo.FileCount);
-            myFileItemViewSource.Source = result;
+            var result = _currentItem.SubFiles.OrderBy(fileinfo => fileinfo.FileCount);
+            _myFileItemViewSource.Source = result;
         }
 
         private void LastEditButton_Click(object sender, RoutedEventArgs e)
         {
-            var result = currentItem.SubFiles.OrderBy(fileinfo => fileinfo.LastEdit);
-            myFileItemViewSource.Source = result;
+            var result = _currentItem.SubFiles.OrderBy(fileinfo => fileinfo.LastEdit);
+            _myFileItemViewSource.Source = result;
         }
 
         private void FilterResults(string filterTerm)
         {
-            if (currentItem.SubFiles != null)
+            if (_currentItem.SubFiles != null)
             {
-                var result = currentItem.SubFiles.Where(fileinfo => fileinfo.Name.Contains(filterTerm));
-                myFileItemViewSource.Source = result;
+                var result = _currentItem.SubFiles.Where(fileinfo => fileinfo.Name.ToUpper().Contains(filterTerm.ToUpper()));
+                _myFileItemViewSource.Source = result;
             }
         }
     }
