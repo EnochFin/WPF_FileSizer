@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -16,6 +17,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Microsoft.Win32;
 
 namespace WpfApplication2
 {
@@ -36,50 +38,10 @@ namespace WpfApplication2
                 if (MyFileItemViewSource != null)
                 {
                     MyFileItemViewSource.SortDescriptions.Clear();
-                    switch (_sortStrategy)
-                    {
-                        case SortStrategy.Alpabetical:
-                            MyFileItemViewSource.SortDescriptions.Add(new SortDescription("Name",
-                                ListSortDirection.Ascending));
-                            break;
-                        case SortStrategy.RAlphabetical:
-                            MyFileItemViewSource.SortDescriptions.Add(new SortDescription("Name",
-                                ListSortDirection.Descending));
-                            break;
-
-                        case SortStrategy.Type:
-                            MyFileItemViewSource.SortDescriptions.Add(new SortDescription("Type",
-                                ListSortDirection.Ascending));
-                            break;
-                        case SortStrategy.RType:
-                            MyFileItemViewSource.SortDescriptions.Add(new SortDescription("Type",
-                                ListSortDirection.Descending));
-                            break;
-                        case SortStrategy.FileCount:
-                            MyFileItemViewSource.SortDescriptions.Add(new SortDescription("FileCount",
-                                ListSortDirection.Ascending));
-                            break;
-                        case SortStrategy.RFileCount:
-                            MyFileItemViewSource.SortDescriptions.Add(new SortDescription("FileCount",
-                                ListSortDirection.Descending));
-                            break;
-                        case SortStrategy.LastEdit:
-                            MyFileItemViewSource.SortDescriptions.Add(new SortDescription("LastEdit",
-                                ListSortDirection.Ascending));
-                            break;
-                        case SortStrategy.RLastEdit:
-                            MyFileItemViewSource.SortDescriptions.Add(new SortDescription("LastEdit",
-                                ListSortDirection.Descending));
-                            break;
-                        case SortStrategy.Size:
-                            MyFileItemViewSource.SortDescriptions.Add(new SortDescription("Size",
-                                ListSortDirection.Ascending));
-                            break;
-                        case SortStrategy.RSize:
-                            MyFileItemViewSource.SortDescriptions.Add(new SortDescription("Size",
-                                ListSortDirection.Descending));
-                            break;
-                    }
+                    string sortOn = _sortStrategy.ToString();
+                    bool descending = sortOn.StartsWith("R");
+                    if (descending) sortOn = sortOn.Substring(1);
+                    MyFileItemViewSource.SortDescriptions.Add(new SortDescription(sortOn, (descending) ? ListSortDirection.Descending : ListSortDirection.Ascending));
                 }
             }
         }
@@ -90,9 +52,6 @@ namespace WpfApplication2
             set
             {
                 _myFileViewSource = value;
-                FilterResults(SearchText.Text);
-                UpdateColumns();    
-                  
             } }
 
         private MyFileInfo _currentItem;
@@ -100,22 +59,24 @@ namespace WpfApplication2
         {
             InitializeComponent();
             _currentItem = new MyFileInfo(null);
-            SortStrategy = SortStrategy.Alpabetical;
+            SortStrategy = SortStrategy.Name;
             SearchText.TextChanged += (sender, e) => FilterResults(SearchText.Text);
-            NameHeader.Click += (sender, e) => SortStrategy = (SortStrategy == SortStrategy.Alpabetical) ? SortStrategy.RAlphabetical : SortStrategy.Alpabetical;
+            NameHeader.Click += (sender, e) => SortStrategy = (SortStrategy == SortStrategy.Name) ? SortStrategy.RName : SortStrategy.Name;
             PercentHeader.Click += (sender, e) => SortStrategy = (SortStrategy == SortStrategy.Size) ? SortStrategy.RSize : SortStrategy.Size;
             SizeHeader.Click += (sender, e) => SortStrategy = (SortStrategy == SortStrategy.Size) ? SortStrategy.RSize : SortStrategy.Size;
             LastEditHeader.Click += (sender, e) => SortStrategy = (SortStrategy == SortStrategy.LastEdit) ? SortStrategy.RLastEdit : SortStrategy.LastEdit;
             FileCountHeader.Click += (sender, e) => SortStrategy = (SortStrategy == SortStrategy.FileCount) ? SortStrategy.RFileCount : SortStrategy.FileCount;
             TypeHeader.Click += (sender, e) => SortStrategy = (SortStrategy == SortStrategy.Type) ? SortStrategy.RType : SortStrategy.Type;
-
+            ((INotifyCollectionChanged)MyFileItemListView.Items).CollectionChanged += (s, args) => {
+                UpdateColumns();
+            };
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             MyFileItemViewSource = ((CollectionViewSource)(FindResource("MyFileItemViewSource")));
-            MyFileItemViewSource.Source = _currentItem.SubFiles;           
-        }
+            MyFileItemViewSource.Source = _currentItem.SubFiles;
+            }
 
         private void myFileItemListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -126,12 +87,14 @@ namespace WpfApplication2
                 {
                     _currentItem = item;
                     MyFileItemViewSource.Source = _currentItem.SubFiles;
+                    SearchText.Clear();
                 }
                 else
                 {
                     Process.Start(item.FullPath);
                 }
             }
+            
         }
 
         private void backButton_Click(object sender, RoutedEventArgs e)
@@ -139,8 +102,10 @@ namespace WpfApplication2
             if (_currentItem.Parent != null)
             {
                 _currentItem = _currentItem.Parent;
-                MyFileItemViewSource.Source = _currentItem.SubFiles; 
+                MyFileItemViewSource.Source = _currentItem.SubFiles;
+                SearchText.Clear();
             }
+
         }
 
         private void searchButton_click(object sender, RoutedEventArgs e)
@@ -183,8 +148,8 @@ namespace WpfApplication2
 
     public enum SortStrategy
     {
-        Alpabetical,
-        RAlphabetical,
+        Name,
+        RName,
         Size,
         RSize,
         FileCount,
