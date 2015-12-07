@@ -10,10 +10,13 @@
             <Trigger Property="IsPressed" Value="True">
                 <Setter Property="Background" Value="#B27300"/>
             </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="Gray"></Setter>
+            </Trigger>
         </Style.Triggers>
         <Setter Property="Background" Value="#157EFB"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type Button}">
@@ -23,6 +26,32 @@
                                 <PathGeometry Figures="M19.4271164 21.4271164 C18.0372495 22.4174803 16.3366522 23 14.5 23 C9.80557939 23 6 19.1944206 6 14.5 C6 9.80557939 9.80557939 6 14.5 6 C19.1944206 6 23 9.80557939 23 14.5 C23 16.3366522 22.4174803 18.0372495 21.4271164 19.4271164 L27.0119176 25.0119176 C27.5621186 25.5621186 27.5575313 26.4424687 27.0117185 26.9882815 L26.9882815 27.0117185 C26.4438648 27.5561352 25.5576204 27.5576204 25.0119176 27.0119176 L19.4271164 21.4271164 L19.4271164 21.4271164 Z M14.5 21 C18.0898511 21 21 18.0898511 21 14.5 C21 10.9101489 18.0898511 8 14.5 8 C10.9101489 8 8 10.9101489 8 14.5 C8 18.0898511 10.9101489 21 14.5 21 L14.5 21 Z" FillRule="evenodd"/>
                             </Path.Data>
                         </Path>
+                    </Border>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="BackButtonStyle" TargetType="{x:Type Button}">
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Background" Value="#FFA400" />
+            </Trigger>
+            <Trigger Property="IsPressed" Value="True">
+                <Setter Property="Background" Value="#B27300"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Background" Value="Gray"></Setter>
+            </Trigger>
+        </Style.Triggers>
+        <Setter Property="Background" Value="#157EFB"></Setter>
+        <Setter Property="VerticalAlignment" Value="Center"></Setter>
+        <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Border Background="Transparent">
+                        <Path StrokeThickness="1" Stroke="#FF000000" StrokeLineJoin="Miter"  Fill="{TemplateBinding Background}" Data="m 15 0 0 4.23001 10.33547 0.0446 -0.0408 8.40906 -10.29093 0 0 4.23001 -8.77757 -8.45683 z"></Path>
                     </Border>
                 </ControlTemplate>
             </Setter.Value>
