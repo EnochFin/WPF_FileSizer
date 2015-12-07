@@ -1,39 +1,37 @@
 ﻿using System;
-using System.CodeDom;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WpfApplication1
+namespace WpfApplication2
 {
-    class MyFileInfo
+    public class MyFileInfo
     {
-        public FileType Type { get; private set; }
-
-        public string Name { get; private set; }
-
         public long Size { get; private set; }
-
-        public int FileCount { get; private set; }
-
-        public MyFileInfo Parent { get; private set; }
-
+        public string Name { get; private set; }
         public IList<MyFileInfo> SubFiles { get; set; }
-
         public DateTime LastEdit { get; private set; }
+        public int FileCount { get; private set; }
+        public FileType Type { get; private set; }
+        public MyFileInfo Parent { get; private set; }
+        public string FullPath { get; private set; }
 
-        private MyFileInfo(string path, MyFileInfo parent)
+        public MyFileInfo(MyFileInfo parent)
+        {
+            Parent = parent;
+        }
+
+        public MyFileInfo(string path, MyFileInfo parent)
         {
             FileCount = 0;
-            Parent = parent;
+            FullPath = path;
+            Name = path.Substring(path.LastIndexOf("\\") + 1);
             SubFiles = new List<MyFileInfo>();
             FileAttributes attr = File.GetAttributes(path);
             LastEdit = Directory.GetLastWriteTime(path);
-            try
-            {
+            Parent = parent;
                 if (attr.HasFlag(FileAttributes.Directory))
                 {
                     Type = FileType.Directory;
@@ -63,13 +61,7 @@ namespace WpfApplication1
                     FileCount = 1;
 
                 }
-            }
-            catch (UnauthorizedAccessException)
-            {
-                Size = -1;
-                FileCount = -1;
-                Type = FileType.BlockedDirectory;
-            }
+            
 
             Name = path.Substring(path.LastIndexOf("\\") + 1);
             if (Name.Trim().Equals(""))
@@ -80,21 +72,12 @@ namespace WpfApplication1
 
         }
 
-        public MyFileInfo(String path)
-        {
-            Name = "__Parent";
-            SubFiles = new List<MyFileInfo>();
-            SubFiles.Add(new MyFileInfo(path, this));
-        }
 
     }
-
-    public enum FileType
-    {
-        Directory,
-        RootDrive,
-        BlockedDirectory,
-        File
-    };
-
+        public enum FileType
+        {
+            Directory,
+            File,
+            RootDrive
+        };
 }
