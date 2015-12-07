@@ -36,16 +36,6 @@ namespace WpfApplication2
             myFileItemViewSource.Source = currentItem.SubFiles;
         }
 
-        private void goToButton_Click(object sender, RoutedEventArgs e)
-        {
-            string path = textDirectory.Text;
-            if (Directory.Exists(path))
-            {
-                currentItem = new MyFileInfo(textDirectory.Text, currentItem.Parent);
-                myFileItemViewSource.Source = currentItem.SubFiles;
-            }
-        }
-
         private void myFileItemListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             var item = ((FrameworkElement)e.OriginalSource).DataContext as MyFileInfo;
@@ -73,8 +63,12 @@ namespace WpfApplication2
 
         private void searchButton_click(object sender, RoutedEventArgs e)
         {
-            var result = currentItem.SubFiles.Where(fileinfo => fileinfo.Name.Contains(searchText.Text));
-            myFileItemViewSource.Source = result;
+            string path = textDirectory.Text;
+            if (Directory.Exists(path))
+            {
+                currentItem = new MyFileInfo(textDirectory.Text, currentItem.Parent);
+                myFileItemViewSource.Source = currentItem.SubFiles;
+            }
         }
 
         private void alphaSortButton_Click(object sender, RoutedEventArgs e)
@@ -104,6 +98,17 @@ namespace WpfApplication2
         private void LastEditButton_Click(object sender, RoutedEventArgs e)
         {
             var result = currentItem.SubFiles.OrderBy(fileinfo => fileinfo.LastEdit);
+            myFileItemViewSource.Source = result;
+        }
+
+        private void SearchText_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            FilterResults(searchText.Text);
+        }
+
+        private void FilterResults(string filterTerm)
+        {
+            var result = currentItem.SubFiles.Where(fileinfo => fileinfo.Name.Contains(filterTerm));
             myFileItemViewSource.Source = result;
         }
     }

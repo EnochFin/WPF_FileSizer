@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApplication2"
+        xmlns:xtnd="clr-namespace:Xceed.Wpf.Toolkit;assembly=Xceed.Wpf.Toolkit"
         mc:Ignorable="d"
         Width="500"
         Height="300"
@@ -25,13 +26,12 @@
                 <ColumnDefinition Width="2*"></ColumnDefinition>
                 <ColumnDefinition Width="Auto"></ColumnDefinition>
                 <ColumnDefinition Width="*"></ColumnDefinition>
-                <ColumnDefinition Width="Auto"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Button x:Name="backButton" Grid.Column="0" Margin="5 0" Content="Back" Click="backButton_Click"/>
             <TextBox x:Name="textDirectory" Grid.Column="1" Margin="5 0" TextWrapping="Wrap"/>
-            <Button x:Name="goToButton" Grid.Column="2" Margin="5 0" Content="->" Click="goToButton_Click"/>
-            <TextBox x:Name="searchText" Grid.Column="3" Margin="5 0" TextWrapping="Wrap"/>
-            <Button x:Name="searchButton" Grid.Column="4" Margin="5 0" Style="{StaticResource SearchButtonStyle}" Content="Search" Click="searchButton_click"/>
+            <Button x:Name="searchButton" Grid.Column="2" Margin="5 0" Style="{StaticResource SearchButtonStyle}" Content="Search" Click="searchButton_click"/>
+            <xtnd:WatermarkTextBox Name="searchText" Watermark="Filter" Grid.Column="3" Margin="5 0" TextWrapping="Wrap" TextChanged="SearchText_OnTextChanged"/>
+            
             
         </Grid>
         <ListView x:Name="myFileItemListView" Margin="5" Grid.Row="1" ItemsSource="{Binding}" SelectionMode="Single" MouseDoubleClick="myFileItemListView_MouseDoubleClick" >
