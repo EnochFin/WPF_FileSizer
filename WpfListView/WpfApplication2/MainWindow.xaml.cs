@@ -28,12 +28,13 @@ namespace WpfApplication2
         {
             InitializeComponent();
             currentItem = new MyFileInfo(null);
+            searchText.TextChanged += (sender, e) => FilterResults(searchText.Text);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             myFileItemViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("myFileItemViewSource")));
-            myFileItemViewSource.Source = currentItem.SubFiles;
+            myFileItemViewSource.Source = currentItem.SubFiles;           
         }
 
         private void myFileItemListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -101,15 +102,13 @@ namespace WpfApplication2
             myFileItemViewSource.Source = result;
         }
 
-        private void SearchText_OnTextChanged(object sender, TextChangedEventArgs e)
-        {
-            FilterResults(searchText.Text);
-        }
-
         private void FilterResults(string filterTerm)
         {
-            var result = currentItem.SubFiles.Where(fileinfo => fileinfo.Name.Contains(filterTerm));
-            myFileItemViewSource.Source = result;
+            if (currentItem.SubFiles != null)
+            {
+                var result = currentItem.SubFiles.Where(fileinfo => fileinfo.Name.Contains(filterTerm));
+                myFileItemViewSource.Source = result;
+            }
         }
     }
 }
