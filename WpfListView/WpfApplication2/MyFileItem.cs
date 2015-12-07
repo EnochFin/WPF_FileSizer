@@ -32,37 +32,36 @@ namespace WpfApplication2
             FileAttributes attr = File.GetAttributes(path);
             LastEdit = Directory.GetLastWriteTime(path);
             Parent = parent;
-                if (attr.HasFlag(FileAttributes.Directory))
+
+            if (attr.HasFlag(FileAttributes.Directory))
+            {
+                Type = FileType.Directory;
+                foreach (string dir in Directory.GetDirectories(path))
                 {
-                    Type = FileType.Directory;
-                    foreach (string dir in Directory.GetDirectories(path))
-                    {
-                        MyFileInfo subDir = new MyFileInfo(dir, this);
-                        SubFiles.Add(subDir);
-                        FileCount += subDir.FileCount;
-                    }
-
-                    foreach (string file in Directory.GetFiles(path))
-                    {
-                        MyFileInfo subDir = new MyFileInfo(file, this);
-                        SubFiles.Add(subDir);
-                        FileCount += 1;
-                    }
-
-                    foreach (MyFileInfo f in SubFiles)
-                    {
-                        Size += f.Size;
-                    }
+                    MyFileInfo subDir = new MyFileInfo(dir, this);
+                    SubFiles.Add(subDir);
+                    FileCount += subDir.FileCount;
                 }
-                else
+
+                foreach (string file in Directory.GetFiles(path))
                 {
-                    Type = FileType.File;
-                    Size = new FileInfo(path).Length;
-                    FileCount = 1;
-
+                    MyFileInfo subDir = new MyFileInfo(file, this);
+                    SubFiles.Add(subDir);
+                    FileCount += 1;
                 }
-            
 
+                foreach (MyFileInfo f in SubFiles)
+                {
+                    Size += f.Size;
+                }
+            }
+            else
+            {
+                Type = FileType.File;
+                Size = new FileInfo(path).Length;
+                FileCount = 1;
+
+            }
             Name = path.Substring(path.LastIndexOf("\\") + 1);
             if (Name.Trim().Equals(""))
             {

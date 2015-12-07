@@ -57,9 +57,11 @@ namespace WpfApplication2
 
         private void backButton_Click(object sender, RoutedEventArgs e)
         {
-            currentItem = currentItem.Parent;
-            myFileItemViewSource.Source = currentItem.SubFiles;
-
+            if (currentItem.Parent != null)
+            {
+                currentItem = currentItem.Parent;
+                myFileItemViewSource.Source = currentItem.SubFiles;
+            }
         }
 
         private void searchButton_click(object sender, RoutedEventArgs e)
@@ -74,26 +76,20 @@ namespace WpfApplication2
 
         private void alphaSortButton_Click(object sender, RoutedEventArgs e)
         {
-
             var result = currentItem.SubFiles.OrderBy(fileinfo => fileinfo.Name);
             myFileItemViewSource.Source = result;
-
         }
 
         private void SizeSortButton_Click(object sender, RoutedEventArgs e)
         {
-
             var result = currentItem.SubFiles.OrderBy(fileinfo => fileinfo.Size);
             myFileItemViewSource.Source = result;
-
         }
 
         private void FileCountButton_Click(object sender, RoutedEventArgs e)
         {
-
             var result = currentItem.SubFiles.OrderBy(fileinfo => fileinfo.FileCount);
             myFileItemViewSource.Source = result;
-
         }
 
         private void LastEditButton_Click(object sender, RoutedEventArgs e)
