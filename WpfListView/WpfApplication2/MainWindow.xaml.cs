@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,19 +32,18 @@ namespace WpfApplication2
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-
             myFileItemViewSource = ((System.Windows.Data.CollectionViewSource)(this.FindResource("myFileItemViewSource")));
-
             myFileItemViewSource.Source = currentItem.SubFiles;
-            
-
-            
         }
 
         private void goToButton_Click(object sender, RoutedEventArgs e)
         {
-            currentItem = new MyFileInfo(textDirectory.Text, currentItem.Parent);
-            myFileItemViewSource.Source = currentItem.SubFiles;
+            string path = textDirectory.Text;
+            if (Directory.Exists(path))
+            {
+                currentItem = new MyFileInfo(textDirectory.Text, currentItem.Parent);
+                myFileItemViewSource.Source = currentItem.SubFiles;
+            }
         }
 
         private void myFileItemListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -103,10 +103,8 @@ namespace WpfApplication2
 
         private void LastEditButton_Click(object sender, RoutedEventArgs e)
         {
-
             var result = currentItem.SubFiles.OrderBy(fileinfo => fileinfo.LastEdit);
             myFileItemViewSource.Source = result;
-
         }
     }
 }
