@@ -29,6 +29,18 @@ namespace WpfApplication2
         private CollectionViewSource _myFileViewSource;
         private SortStrategy _sortStrategy;
 
+
+
+        public bool CanBack
+        {
+            get { return (bool)GetValue(CanBackProperty); }
+            set { SetValue(CanBackProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for CanBack.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty CanBackProperty =
+            DependencyProperty.Register("CanBack", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
+
         private SortStrategy SortStrategy
         {
             get { return _sortStrategy; }
@@ -69,7 +81,9 @@ namespace WpfApplication2
             TypeHeader.Click += (sender, e) => SortStrategy = (SortStrategy == SortStrategy.Type) ? SortStrategy.RType : SortStrategy.Type;
             ((INotifyCollectionChanged)MyFileItemListView.Items).CollectionChanged += (s, args) => {
                 UpdateColumns();
+                CanBack = _currentItem.Parent != null;
             };
+            CanBack = false;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
