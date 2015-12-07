@@ -28,27 +28,4 @@
             </Setter.Value>
         </Setter>
     </Style>
-    <Style x:Key="SortA-ZButton" TargetType="{x:Type Button}">
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Background" Value="#FFA400" />
-            </Trigger>
-            <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Background" Value="#B27300"/>
-            </Trigger>
-        </Style.Triggers>
-        <Setter Property="Background" Value="#157EFB"/>
-        <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="VerticalContentAlignment" Value="Center"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Button}">
-                    <Border Background="Transparent">
-                        <Image Source="pack://application:,,,/Images/Sort_Alpha.png"/>
-                    </Border>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
 </ResourceDictionary>
