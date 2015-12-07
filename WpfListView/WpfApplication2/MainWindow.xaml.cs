@@ -23,7 +23,17 @@ namespace WpfApplication2
     /// </summary>
     public partial class MainWindow : Window
     {
-        private CollectionViewSource _myFileItemViewSource;
+        //private CollectionViewSource _myFileItemViewSource;
+
+        private CollectionViewSource _myFileViewSource;
+        private CollectionViewSource MyFileItemViewSource
+        {
+            get { return _myFileViewSource; }
+            set
+            {
+                _myFileViewSource = value;
+                UpdateColumns();      
+            } }
         private MyFileInfo _currentItem;
         public MainWindow()
         {
@@ -34,8 +44,8 @@ namespace WpfApplication2
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            _myFileItemViewSource = ((CollectionViewSource)(FindResource("MyFileItemViewSource")));
-            _myFileItemViewSource.Source = _currentItem.SubFiles;           
+            MyFileItemViewSource = ((CollectionViewSource)(FindResource("MyFileItemViewSource")));
+            MyFileItemViewSource.Source = _currentItem.SubFiles;           
         }
 
         private void myFileItemListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
@@ -46,7 +56,7 @@ namespace WpfApplication2
                 if (item.Type == FileType.Directory)
                 {
                     _currentItem = item;
-                    UpdateListViewSource(_currentItem.SubFiles);
+                    MyFileItemViewSource.Source = _currentItem.SubFiles;
                 }
                 else
                 {
@@ -61,7 +71,7 @@ namespace WpfApplication2
             if (_currentItem.Parent != null)
             {
                 _currentItem = _currentItem.Parent;
-                UpdateListViewSource(_currentItem.SubFiles);
+                MyFileItemViewSource.Source = _currentItem.SubFiles; 
             }
         }
 
@@ -71,32 +81,32 @@ namespace WpfApplication2
             if (Directory.Exists(path))
             {
                 _currentItem = new MyFileInfo(TextDirectory.Text, _currentItem.Parent);
-                UpdateListViewSource(_currentItem.SubFiles);
+                MyFileItemViewSource.Source = _currentItem.SubFiles;
             }
         }
 
         private void alphaSortButton_Click(object sender, RoutedEventArgs e)
         {
             var result = _currentItem.SubFiles.OrderBy(fileinfo => fileinfo.Name);
-            _myFileItemViewSource.Source = result;
+            MyFileItemViewSource.Source = result;
         }
 
         private void SizeSortButton_Click(object sender, RoutedEventArgs e)
         {
             var result = _currentItem.SubFiles.OrderBy(fileinfo => fileinfo.Size);
-            _myFileItemViewSource.Source = result;
+            MyFileItemViewSource.Source = result;
         }
 
         private void FileCountButton_Click(object sender, RoutedEventArgs e)
         {
             var result = _currentItem.SubFiles.OrderBy(fileinfo => fileinfo.FileCount);
-            _myFileItemViewSource.Source = result;
+            MyFileItemViewSource.Source = result;
         }
 
         private void LastEditButton_Click(object sender, RoutedEventArgs e)
         {
             var result = _currentItem.SubFiles.OrderBy(fileinfo => fileinfo.LastEdit);
-            _myFileItemViewSource.Source = result;
+            MyFileItemViewSource.Source = result;
         }
 
         private void FilterResults(string filterTerm)
@@ -104,7 +114,7 @@ namespace WpfApplication2
             if (_currentItem.SubFiles != null)
             {
                 var result = _currentItem.SubFiles.Where(fileinfo => fileinfo.Name.ToUpper().Contains(filterTerm.ToUpper()));
-                _myFileItemViewSource.Source = result;
+                MyFileItemViewSource.Source = result;
             }
         }
 
@@ -126,12 +136,6 @@ namespace WpfApplication2
             }
 
             column.Width = double.NaN;
-        }
-
-        private void UpdateListViewSource(IList<MyFileInfo> source)
-        {
-            _myFileItemViewSource.Source = source;
-            UpdateColumns();
         }
     }
 }
