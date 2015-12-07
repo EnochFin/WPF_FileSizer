@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Width="500"
         Height="300"
-        Title="MainWindow" MinHeight="150" MinWidth="500" Loaded="Window_Loaded">
+        Title="MainWindow" MinHeight="150" MinWidth="500" Loaded="Window_Loaded" Icon="Images/folder.ico">
     <Window.Resources>
         <CollectionViewSource x:Key="myFileItemViewSource" d:DesignSource="{d:DesignInstance {x:Type local:MyFileInfo}, CreateList=True}"/>
         <local:SizesToGradientConverter x:Key="GradientConverter"/>
