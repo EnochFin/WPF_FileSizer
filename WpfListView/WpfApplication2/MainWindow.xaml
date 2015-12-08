@@ -185,6 +185,7 @@
             </ListView.View>
         </ListView>
         <xtnd:BusyIndicator x:Name="Busy" Grid.Row="1" Grid.Column="1" IsBusy="{Binding ElementName=MyMainWindow, Path=IsBusy}" HorizontalAlignment="Center" VerticalAlignment="Center" Height="0" Margin="185,119,214,118" Width="0"></xtnd:BusyIndicator>
+        <!-- Enoch's contribution Added this TreeView and the TreeViewDictionary edited from a previous iteration of this project.-->
         <TreeView Grid.Row="1"  x:Name="FileTreeView" Grid.Column="0" SelectedItemChanged="FileTreeView_OnSelectedItemChanged" HorizontalAlignment="Left" Width="193">
             <TreeView.Resources>
                 <ResourceDictionary Source="Dictionaries/TreeViewDictionary.xaml"></ResourceDictionary>
