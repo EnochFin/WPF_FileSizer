@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.Remoting.Channels;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -40,6 +41,19 @@ namespace WpfApplication2
         // Using a DependencyProperty as the backing store for CanBack.  This enables animation, styling, binding, etc...
         public static readonly DependencyProperty CanBackProperty =
             DependencyProperty.Register("CanBack", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
+
+
+
+        public bool IsBusy
+        {
+            get { return (bool)GetValue(IsBusyProperty); }
+            set { SetValue(IsBusyProperty, value); }
+        }
+
+        // Using a DependencyProperty as the backing store for IsBusy.  This enables animation, styling, binding, etc...
+        public static readonly DependencyProperty IsBusyProperty =
+            DependencyProperty.Register("IsBusy", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
+
 
         private SortStrategy SortStrategy
         {
@@ -83,7 +97,6 @@ namespace WpfApplication2
                 UpdateColumns();
                 CanBack = _currentItem.Parent != null;
             };
-            CanBack = false;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -122,14 +135,24 @@ namespace WpfApplication2
 
         }
 
-        private void searchButton_click(object sender, RoutedEventArgs e)
+        private async void searchButton_click(object sender, RoutedEventArgs e)
         {
             string path = TextDirectory.Text;
             if (Directory.Exists(path))
             {
-                _currentItem = new MyFileInfo(TextDirectory.Text, _currentItem.Parent);
+                IsBusy = true;
+                _currentItem = await Task.Run(() =>
+                {
+                    return new MyFileInfo(path, null);
+                });
                 MyFileItemViewSource.Source = _currentItem.SubFiles;
+                IsBusy = false;
             }
+        }
+
+        private async Task UpdateCurrentItem()
+        {
+            
         }
 
         private void FilterResults(string filterTerm)

@@ -173,5 +173,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
+        <xtnd:BusyIndicator x:Name="Busy" Grid.Row="1" IsBusy="{Binding ElementName=MyMainWindow, Path=IsBusy}" HorizontalAlignment="Center" VerticalAlignment="Center"></xtnd:BusyIndicator>
     </Grid>
 </Window>
