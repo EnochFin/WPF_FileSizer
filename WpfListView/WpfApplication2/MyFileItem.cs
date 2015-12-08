@@ -24,6 +24,18 @@ namespace WpfApplication2
             Parent = parent;
         }
 
+        /* Personal Feature: Carver
+            The MyFileItems class represents a directory and all of it's children (which are in turn MyFileItems)
+            The constructor recurses through the diretories ensure that each item is cached in ram and the size
+            of each folder in calculated only a single time. 
+
+            I eventually figured out how to create this object without blocking the UI thread, but if I continue to
+            work on this in the future I would like to have the size calculated after the constructor so that folders
+            can be displayed to the user before size is avialable.
+
+            This class also handles the UnathorizeAccessException. When this excpetion occurs the class is marked as 
+            Unathorized and can then be properly displayed throughout the application. 
+        */
         public MyFileInfo(string path, MyFileInfo parent)
         {
             try

@@ -2,6 +2,12 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:WpfApplication2="clr-namespace:WpfApplication2">
 
+<!--    Personal Feature: Carver
+        I added custom images and triggers for the buttons.
+        Tiggers were super helpful to learn and because of this project I have been able to apply them in other
+        places. I also learned how easy and extensible it is to implement your own style for any of the wpf controls
+        -->
+    
     <Style x:Key="SearchButtonStyle" TargetType="{x:Type Button}">
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">

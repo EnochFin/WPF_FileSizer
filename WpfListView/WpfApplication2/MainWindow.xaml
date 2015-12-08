@@ -42,6 +42,13 @@
             <ListView.View>
                 <GridView>
                     <GridViewColumn x:Name="TypeColumn" Width="80">
+                        <!--Personal Feature: Carver
+                            The image displayed is bound the enum belonging to the MyFileItem class. This 
+                            took a long time to figure out. Binding to a enum was not as intuitive as I would
+                            have expected. Eventually I was able to find the proper keywords to get it working.
+                            This helped me refine my knowledge of binding and led into me discovering dependency 
+                            properties (though not used for this problem).
+                        -->
                         <GridViewColumnHeader x:Name="TypeHeader" Content="Type"/>
                         <GridViewColumn.CellTemplate>
                             <DataTemplate>

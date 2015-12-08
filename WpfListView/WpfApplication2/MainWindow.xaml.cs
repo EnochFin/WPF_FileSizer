@@ -22,6 +22,14 @@ using Microsoft.Win32;
 
 namespace WpfApplication2
 {
+    /* PERSONAL FEATURE INDEX: Carver
+       Cached file structure -- file strutcure is manually recursed and stored in ram for high filter performance -- located in MyFileItem.cs
+       UnathorizedAccessException coverage -- attempting to view blocked file will not crash and is indicated  -- located in MyFileItem.cs and converters and classes that use it
+       Custom Button Templates -- custom appearence of buttons -- located in FileSizerFiles.xaml
+       Custom Images based of file type -- images for each type of file tracked by MyFileItem -- located in MainWindow.xaml
+    */
+
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
