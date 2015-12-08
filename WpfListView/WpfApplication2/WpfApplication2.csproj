@@ -98,7 +98,8 @@
     <Compile Include="Converters\BytesToUnitsConverter.cs" />
     <Compile Include="Converters\SizesToGradientConverter.cs" />
     <Compile Include="Converters\SizesToPercentageConverter.cs" />
-    <Compile Include="MyFileItem.cs" />
+    <Compile Include="MyDirInfo.cs" />
+    <Compile Include="MyFileInfo.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

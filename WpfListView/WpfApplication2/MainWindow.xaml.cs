@@ -89,6 +89,7 @@ namespace WpfApplication2
             } }
 
         private MyFileInfo _currentItem;
+        private MyDirInfo _currentDir;
         public MainWindow()
         {
             InitializeComponent();
@@ -111,7 +112,10 @@ namespace WpfApplication2
         {
             MyFileItemViewSource = ((CollectionViewSource)(FindResource("MyFileItemViewSource")));
             MyFileItemViewSource.Source = _currentItem.SubFiles;
-            }
+
+            _currentDir = new MyDirInfo("C:/");
+            FileTreeView.ItemsSource = _currentDir.SubFiles;
+        }
 
         private void myFileItemListView_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
@@ -188,6 +192,21 @@ namespace WpfApplication2
                 column.Width = column.ActualWidth;
             }
             column.Width = double.NaN;
+        }
+
+        private void FileTreeView_OnSelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
+        {
+            MyDirInfo selected = FileTreeView.SelectedItem as MyDirInfo;
+            
+            if (selected != null)
+            {
+                _currentDir = selected;
+                _myFileViewSource.Source = new MyFileInfo(selected.FullPath, null).SubFiles;
+            }
+            else
+            {
+                Console.WriteLine("Cant cast");
+            }
         }
     }
 
